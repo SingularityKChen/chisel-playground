@@ -28,7 +28,13 @@ checkformat:
 clean:
 	-rm -rf $(BUILD_DIR)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean
+build_docker:
+	docker build -f docker/Dockerfile -t chisel-chipware:latest .
+
+run_docker: build_docker
+	docker run -it --rm -v $(shell pwd):/workspace/$(shell basename $$(pwd)) --workdir /workspace/$(shell basename $$(pwd)) chisel-chipware:latest
+
+.PHONY: test verilog help compile bsp reformat checkformat build_docker run_docker clean
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
