@@ -29,7 +29,7 @@ clean:
 	-rm -rf $(BUILD_DIR)
 
 build_docker:
-	docker build -f docker/Dockerfile -t chisel-chipware:latest .
+	docker build -f .devcontainer/Dockerfile -t chisel-chipware:latest .
 
 run_docker: build_docker
 	docker run -it --rm -v $(shell pwd):/workspace/$(shell basename $$(pwd)) --workdir /workspace/$(shell basename $$(pwd)) chisel-chipware:latest
